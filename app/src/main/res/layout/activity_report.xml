@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activity.ReportActivity">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="10dp"
+        android:paddingLeft="24dp"
+        android:paddingRight="24dp">
+        <ProgressBar
+            android:id="@+id/progress_bar_report"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:indeterminate="true"
+            android:visibility="invisible"/>
+
+        <ImageView android:src="@drawable/logo"
+            android:layout_width="wrap_content"
+            android:layout_height="72dp"
+            android:layout_marginBottom="24dp"
+            android:layout_gravity="center_horizontal" />
+
+        <!-- Gender drop-down spinner -->
+        <Spinner
+            android:id="@+id/computerId"
+            android:layout_height="48dp"
+            android:layout_width="wrap_content"
+            android:paddingRight="16dp"
+            android:spinnerMode="dropdown"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"/>
+        <!-- Gender drop-down spinner -->
+        <Spinner
+            android:id="@+id/problemType"
+            android:layout_height="48dp"
+            android:layout_width="wrap_content"
+            android:paddingRight="16dp"
+            android:spinnerMode="dropdown"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"/>
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/camera"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="24dp"
+            android:padding="12dp"
+            android:text="Camera"/>
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/video"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="24dp"
+            android:padding="12dp"
+            android:text="Video"/>
+
+        <!--  Problem description -->
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp">
+            <EditText android:id="@+id/input_problem_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textMultiLine"
+                android:hint="Problem Description" />
+        </android.support.design.widget.TextInputLayout>
+        <!-- Signup Button -->
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/btn_send_report"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="24dp"
+            android:padding="12dp"
+            android:text="Send"/>
+
+    </LinearLayout>
+
+</ScrollView>

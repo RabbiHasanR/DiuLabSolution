@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="lab_room_number">
+        <item>Lab 1</item>
+        <item>Lab 2</item>
+        <item>Lab 3</item>
+        <item>Lab 4</item>
+        <item>Lab 5</item>
+    </string-array>
+    <string-array name="user_type">
+        <item>User Type</item>
+        <item>Authority</item>
+        <item>User</item>
+    </string-array>
+    <string-array name="computer_id">
+        <item>Select Computer Id</item>
+        <item>computer 101</item>
+        <item>computer 102</item>
+        <item>computer 103</item>
+        <item>computer 104</item>
+        <item>computer 105</item>
+        <item>computer 106</item>
+        <item>computer 107</item>
+        <item>computer 108</item>
+        <item>computer 109</item>
+        <item>computer 110</item>
+    </string-array>
+    <string-array name="problem_type">
+        <item>Problem type</item>
+        <item>Hardware</item>
+        <item>Software</item>
+        <item>Others</item>
+    </string-array>
+</resources>

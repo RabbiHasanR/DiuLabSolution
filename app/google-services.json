@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "830816417427",
+    "firebase_url": "https://diulabsolution.firebaseio.com",
+    "project_id": "diulabsolution",
+    "storage_bucket": "diulabsolution.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:830816417427:android:af58503e935b1985",
+        "android_client_info": {
+          "package_name": "com.example.diu.diulabsolution"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "830816417427-5uk92dehnrto67qnrp0sthq6535j5ire.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.diu.diulabsolution",
+            "certificate_hash": "b8fbed8c8b7fce25889d587d9be485fcc70c5a30"
+          }
+        },
+        {
+          "client_id": "830816417427-65uir3v0if97pv28n55ehcffe58cvhgi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDADgbv6aJwbal3MDb82z4ng_2NJxV4MtM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "830816417427-65uir3v0if97pv28n55ehcffe58cvhgi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

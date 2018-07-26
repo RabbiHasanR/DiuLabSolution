@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
+    <ImageView
+        android:id="@+id/imageId"
+        android:layout_width="match_parent"
+        android:layout_height="128dp"
+        android:layout_gravity="center"
+        android:adjustViewBounds="true"
+        android:contentDescription="@string/app_name"
+        android:src="@drawable/room"  />
+
+    <LinearLayout
+        android:id="@+id/text_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/imageId"
+        android:layout_alignEnd="@id/imageId"
+        android:layout_alignStart="@id/imageId"
+        android:layout_alignTop="@id/imageId"
+        android:layout_alignRight="@id/imageId"
+        android:layout_alignLeft="@id/imageId"
+        android:layout_margin="1dp"
+        android:background="#55000000"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingLeft="16dp">
+
+        <TextView
+            android:id="@+id/roomName_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Room Id"
+            android:textColor="@android:color/white"
+            android:textSize="14sp"
+            android:textStyle="normal" />
+
+        <TextView
+            android:id="@+id/roomId_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/white"
+            android:textSize="14sp"
+            android:textStyle="normal"
+            tools:text="405" />
+    </LinearLayout>
+
+</RelativeLayout>
