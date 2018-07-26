@@ -1,10 +1,9 @@
 package com.example.diu.diulabsolution.Activity;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.support.v7.app.AppCompatCallback;
 import android.support.v7.widget.AppCompatButton;
 import android.text.TextUtils;
 import android.view.View;
@@ -18,12 +17,16 @@ import android.widget.Toast;
 
 import com.example.diu.diulabsolution.R;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
+
+import java.util.HashMap;
 
 public class SignInActivity extends AppCompatActivity {
 
@@ -32,8 +35,12 @@ public class SignInActivity extends AppCompatActivity {
     private Spinner userTypeSpinner;
     private EditText inputEmail,inputPassword;
     private FirebaseAuth mAuth;
+    private FirebaseFirestore mFiresStore;
     private ProgressBar progressBar;
     private String userType;
+    private String userId;
+    private String token;
+
 
     @Override
     protected void onStart() {
@@ -49,7 +56,7 @@ public class SignInActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
         mAuth=FirebaseAuth.getInstance();
-
+        mFiresStore = FirebaseFirestore.getInstance();
         findView();
         signUP.setOnClickListener(
                 new View.OnClickListener() {
@@ -123,7 +130,8 @@ public class SignInActivity extends AppCompatActivity {
                            if(task.isSuccessful()){
                                if(userType.equalsIgnoreCase("authority")){
                                    sendToAuthority();
-                                   progressBar.setVisibility(View.INVISIBLE);
+                                   /** Send  login report to user table that this user_type is authority && login_status is true && store  firebase token  **/
+                                   upateUserLoginStatus(userType);
                                }
                                else {
                                    sendToUser();
@@ -142,5 +150,27 @@ public class SignInActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private void upateUserLoginStatus(String userType) {
+        FirebaseInstanceId.getInstance().getInstanceId().addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+            @Override
+            public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                token = task.getResult().getToken();
+                HashMap<String, Object> updateInfo = new HashMap<>();
+                updateInfo.put("login_status", true);
+                updateInfo.put("token", token);
+                userId = mAuth.getCurrentUser().getUid();
+
+                mFiresStore.collection("users").document(userId).update(updateInfo).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        progressBar.setVisibility(View.INVISIBLE);
+                    }
+                });
+            }
+        });
+
+
     }
 }

@@ -29,6 +29,12 @@
         <activity android:name=".Activity.ReportActivity" />
         <activity android:name=".Activity.UserActivity" />
         <activity android:name=".Activity.AuthorityActivity" />
+
+        <service android:name=".service.MyFirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>
