@@ -5,13 +5,14 @@ public class Complain {
     private String computerId;
     private String complainType;
     private String complainDescription;
-    private long date;
+    private String fromUserId;
 
-    public Complain( String computerId, String complainType, String complainDescription,long date) {
+
+    public Complain( String computerId, String complainType, String complainDescription) {
         this.computerId = computerId;
         this.complainType = complainType;
         this.complainDescription = complainDescription;
-        this.date=date;
+
     }
 
     public String getComplainId() {
@@ -44,5 +45,13 @@ public class Complain {
 
     public void setComplainDescription(String complainDescription) {
         this.complainDescription = complainDescription;
+    }
+
+    public String getFromUserId() {
+        return fromUserId;
+    }
+
+    public void setFromUserId(String fromUserId) {
+        this.fromUserId = fromUserId;
     }
 }

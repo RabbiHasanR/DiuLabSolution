@@ -119,12 +119,12 @@ public class ReportActivity extends AppCompatActivity {
                 String problem=problemDescription.getText().toString();
                 if(!TextUtils.isEmpty(problem)){
                     Map<String,Object> notificationMessage=new HashMap<>();
-                    notificationMessage.put("problem_type",problemType);
+                    notificationMessage.put("complain_type",problemType);
                     notificationMessage.put("room_id",roomId);
                     notificationMessage.put("computer_id",computerId);
-                    notificationMessage.put("message",problem);
-                    notificationMessage.put("from",mUserId);
-                    mFireStore.collection("notifications").add(notificationMessage).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    notificationMessage.put("complain_description",problem);
+                    notificationMessage.put("from_user_id",mUserId);
+                    mFireStore.collection("complains").add(notificationMessage).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                         @Override
                         public void onSuccess(DocumentReference documentReference) {
                             Toast.makeText(ReportActivity.this, "Send Problem Report", Toast.LENGTH_SHORT).show();

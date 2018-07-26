@@ -25,7 +25,6 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
         <activity android:name=".Activity.ReportActivity" />
         <activity android:name=".Activity.UserActivity" />
         <activity android:name=".Activity.AuthorityActivity" />
@@ -35,6 +34,8 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
+
+        <activity android:name=".Activity.NotificationDetailsActivity"></activity>
     </application>
 
 </manifest>
