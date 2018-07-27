@@ -1,11 +1,13 @@
 package com.example.diu.diulabsolution.Activity;
 
+import android.app.Fragment;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatButton;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -14,12 +16,16 @@ import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+import com.example.diu.diulabsolution.Fragment.AuthorityNotificationFragment;
 import com.example.diu.diulabsolution.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
@@ -32,9 +38,10 @@ public class ReportActivity extends AppCompatActivity {
     private String computerId, problemType,roomId;
     private AppCompatButton sendBtn;
     private FirebaseFirestore mFireStore;
-    private String mUserId;
+    private String mUserId,problem;
     private ProgressBar progressBar;
     //private int notificationId=0;
+    private String sender_name,sender_id,sender_type,complain_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,27 +123,10 @@ public class ReportActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 progressBar.setVisibility(View.VISIBLE);
-                String problem=problemDescription.getText().toString();
-                if(!TextUtils.isEmpty(problem)){
-                    Map<String,Object> notificationMessage=new HashMap<>();
-                    notificationMessage.put("complain_type",problemType);
-                    notificationMessage.put("room_id",roomId);
-                    notificationMessage.put("computer_id",computerId);
-                    notificationMessage.put("complain_description",problem);
-                    notificationMessage.put("from_user_id",mUserId);
-                    mFireStore.collection("complains").add(notificationMessage).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                        @Override
-                        public void onSuccess(DocumentReference documentReference) {
-                            Toast.makeText(ReportActivity.this, "Send Problem Report", Toast.LENGTH_SHORT).show();
-                            progressBar.setVisibility(View.INVISIBLE);
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(ReportActivity.this, "don't Send Problem Report", Toast.LENGTH_SHORT).show();
-                            progressBar.setVisibility(View.INVISIBLE);
-                        }
-                    });
+                 problem=problemDescription.getText().toString();
+                if(!TextUtils.isEmpty(problem)) {
+                    storeComplain();
+                    Toast.makeText(ReportActivity.this, "Send report successfully", Toast.LENGTH_SHORT).show();
                 }else{
                     Toast.makeText(ReportActivity.this, "Give problem description", Toast.LENGTH_SHORT).show();
                     progressBar.setVisibility(View.INVISIBLE);
@@ -144,6 +134,83 @@ public class ReportActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    private void storeComplain(){
+            Map<String,Object> complains=new HashMap<>();
+            complains.put("complain_type",problemType);
+            complains.put("room_id",roomId);
+            complains.put("computer_id",computerId);
+            complains.put("complain_description",problem);
+            complains.put("from_user_id",mUserId);
+
+
+
+
+            mFireStore.collection("complains").add(complains).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                @Override
+                public void onSuccess(DocumentReference documentReference) {
+                    //Toast.makeText(ReportActivity.this, "Store complains in firestore", Toast.LENGTH_SHORT).show();
+                    Log.i("Report for complains: ","Store complains in firestore");
+                    String docId=documentReference.getId();
+                    storeNotification(docId);
+                   /* Fragment argumentFragment = new Fragment();//Get Fragment Instance
+                    Bundle data = new Bundle();//Use bundle to pass data
+                    data.putString("document_id", docId);//put string, int, etc in bundle with a key value
+                    argumentFragment.setArguments(data);*/
+
+                   /* Intent intent=new Intent(getContext(),ReportActivity.class);
+                    intent.putExtra("doc-id",docId);
+                    startActivity(intent);*/
+                    progressBar.setVisibility(View.INVISIBLE);
+
+
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    //Toast.makeText(ReportActivity.this, "error Send Problem Report", Toast.LENGTH_SHORT).show();
+                    Log.i("Report for complains: ","Error Store complains in firestore");
+                    progressBar.setVisibility(View.INVISIBLE);
+                }
+            });
+
+
+    }
+
+    private void storeNotification(String docId){
+        String notificationTitle="Diu Lab Complain";
+
+        mFireStore.collection("notifications").document(mUserId).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                 //user_name=documentSnapshot.getString("name");
+                 sender_id=documentSnapshot.getString("user_id");
+                 //user_type=documentSnapshot.getString("user_type");
+            }
+        });
+        Map<String,Object> notifications=new HashMap<>();
+        notifications.put("notification_title",notificationTitle);
+        notifications.put("notification_sender_id",sender_id);
+        notifications.put("complain_id",docId);
+        notifications.put("complain_type",problemType);
+
+        mFireStore.collection("notifications").add(notifications).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+            @Override
+            public void onSuccess(DocumentReference documentReference) {
+                //Toast.makeText(ReportActivity.this, "Notification Store in FireStore", Toast.LENGTH_SHORT).show();
+                Log.i("Report for notify: ","Notification Store in FireStore");
+                progressBar.setVisibility(View.INVISIBLE);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                //Toast.makeText(ReportActivity.this, "error Notification Store in FireStore", Toast.LENGTH_SHORT).show();
+                Log.i("Report for notify: ","Error Notification Store in FireStore");
+               progressBar.setVisibility(View.INVISIBLE);
+            }
+        });
+
     }
 }
 

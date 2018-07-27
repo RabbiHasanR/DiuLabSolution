@@ -29,7 +29,6 @@ import com.google.firebase.iid.InstanceIdResult;
 import java.util.HashMap;
 
 public class SignInActivity extends AppCompatActivity {
-
     private TextView signUP;
     private AppCompatButton signIn;
     private Spinner userTypeSpinner;

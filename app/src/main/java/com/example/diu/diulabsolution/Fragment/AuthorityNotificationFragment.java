@@ -65,6 +65,7 @@ public class AuthorityNotificationFragment extends Fragment {
         recyclerViewList.setLayoutManager(new LinearLayoutManager(container.getContext()));
         recyclerViewList.setAdapter(authorityNotificationAdapter);
 
+
         return rootView;
     }
 

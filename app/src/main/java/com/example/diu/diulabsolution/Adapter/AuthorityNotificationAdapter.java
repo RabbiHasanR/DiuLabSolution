@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.diu.diulabsolution.Model.Notification;
@@ -35,7 +36,16 @@ public class AuthorityNotificationAdapter extends RecyclerView.Adapter<Authority
         holder.notificationTitleView.setText(notificationsList.get(position).getNotificationTitle());
         holder.complainTypeView.setText(notificationsList.get(position).getComplainType());
         holder.senderIdView.setText(notificationsList.get(position).getNotificationSenderId());
+        holder.notificationItemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+            }
+        });
     }
+
+
 
     @Override
     public int getItemCount() {
@@ -45,6 +55,7 @@ public class AuthorityNotificationAdapter extends RecyclerView.Adapter<Authority
     public class ViewHolder extends RecyclerView.ViewHolder{
         private View mView;
         private TextView notificationTitleView,complainTypeView,senderIdView;
+        private RelativeLayout notificationItemView;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -52,6 +63,7 @@ public class AuthorityNotificationAdapter extends RecyclerView.Adapter<Authority
             notificationTitleView=(TextView)mView.findViewById(R.id.notificationTitle);
             complainTypeView=(TextView)mView.findViewById(R.id.complainType);
             senderIdView=(TextView)mView.findViewById(R.id.senderId);
+            notificationItemView=(RelativeLayout) mView.findViewById(R.id.notification_list);
         }
     }
 
