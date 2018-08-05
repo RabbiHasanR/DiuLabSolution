@@ -9,3 +9,6 @@
 /build
 /captures
 .externalNativeBuild
+/diu-lab-firebase-backend/.idea
+/diu-lab-firebase-backend/functions/node_modules
+/diu-lab-firebase-backend/functions/package-lock.json
