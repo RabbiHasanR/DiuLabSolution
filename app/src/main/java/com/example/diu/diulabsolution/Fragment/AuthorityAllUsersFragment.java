@@ -1,7 +1,5 @@
 package com.example.diu.diulabsolution.Fragment;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -9,8 +7,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
-import android.widget.TextView;
 
 import com.example.diu.diulabsolution.Adapter.UserAdapter;
 import com.example.diu.diulabsolution.Model.Users;
@@ -34,24 +30,24 @@ public class AuthorityAllUsersFragment extends Fragment {
     private List<Users> usersList;
     private UserAdapter userAdapter;
 
-public AuthorityAllUsersFragment(){
+    public AuthorityAllUsersFragment() {
 
-}
+    }
+
     @Override
     public void onStart() {
         super.onStart();
         usersList.clear();
-        mFirestore.collection("users").addSnapshotListener(getActivity(),new EventListener<QuerySnapshot>() {
+        mFirestore.collection("users").addSnapshotListener(getActivity(), new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
-                 for(DocumentChange doc: queryDocumentSnapshots.getDocumentChanges()){
-                     if(doc.getType()==DocumentChange.Type.ADDED){
-                         Users users=doc.getDocument().toObject(Users.class);
-                         usersList.add(users);
-
-                         userAdapter.notifyDataSetChanged();
-                     }
-                 }
+                for (DocumentChange doc : queryDocumentSnapshots.getDocumentChanges()) {
+                    if (doc.getType() == DocumentChange.Type.ADDED) {
+                        Users users = doc.getDocument().toObject(Users.class);
+                        usersList.add(users);
+                        userAdapter.notifyDataSetChanged();
+                    }
+                }
             }
         });
     }
@@ -59,12 +55,12 @@ public AuthorityAllUsersFragment(){
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        rootView=inflater.inflate(R.layout.fragment_all_users, container, false);
-        mFirestore=FirebaseFirestore.getInstance();
+        rootView = inflater.inflate(R.layout.fragment_all_users, container, false);
+        mFirestore = FirebaseFirestore.getInstance();
         //addUsersInArrayList();
-        recyclerViewList=(RecyclerView)rootView.findViewById(R.id.recyclerListView);
-        usersList=new ArrayList<>();
-        userAdapter=new UserAdapter(container.getContext(),usersList);
+        recyclerViewList = (RecyclerView) rootView.findViewById(R.id.recyclerListView);
+        usersList = new ArrayList<>();
+        userAdapter = new UserAdapter(container.getContext(), usersList);
         recyclerViewList.setHasFixedSize(true);
         recyclerViewList.setLayoutManager(new LinearLayoutManager(container.getContext()));
         recyclerViewList.setAdapter(userAdapter);

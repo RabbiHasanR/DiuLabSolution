@@ -1,6 +1,7 @@
 package com.example.diu.diulabsolution.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,8 +10,11 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.example.diu.diulabsolution.Activity.NotificationDetailsActivity;
+import com.example.diu.diulabsolution.Model.Data;
 import com.example.diu.diulabsolution.Model.Notification;
 import com.example.diu.diulabsolution.R;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.List;
 
@@ -18,10 +22,13 @@ public class AuthorityNotificationAdapter extends RecyclerView.Adapter<Authority
 
     private List<Notification> notificationsList;
     private Context context;
-
+    private String complainDocId,mUserId;
+    private FirebaseAuth mAuth;
     public AuthorityNotificationAdapter(Context context, List<Notification> notificationList){
         this.notificationsList=notificationList;
         this.context=context;
+        mAuth=FirebaseAuth.getInstance();
+
     }
 
     @NonNull
@@ -32,15 +39,19 @@ public class AuthorityNotificationAdapter extends RecyclerView.Adapter<Authority
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.notificationTitleView.setText(notificationsList.get(position).getNotificationTitle());
-        holder.complainTypeView.setText(notificationsList.get(position).getComplainType());
-        holder.senderIdView.setText(notificationsList.get(position).getNotificationSenderId());
-        holder.notificationItemView.setOnClickListener(new View.OnClickListener() {
+    public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
+        holder.notificationTitleView.setText(notificationsList.get(position).getNotification_title());
+        holder.complainTypeView.setText(notificationsList.get(position).getComplain_type());
+        holder.senderIdView.setText(notificationsList.get(position).getNotification_sender_id());
+        holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
+                mUserId=mAuth.getCurrentUser().getUid();
+                complainDocId = notificationsList.get(position).getComplain_id();
+                Intent intent=new Intent(context,NotificationDetailsActivity.class);
+                intent.putExtra("complain_doc_id",complainDocId);
+                intent.putExtra("current_user_id",mUserId);
+                context.startActivity(intent);
             }
         });
     }

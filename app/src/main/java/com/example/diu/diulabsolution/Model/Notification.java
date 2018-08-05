@@ -2,51 +2,51 @@ package com.example.diu.diulabsolution.Model;
 
 public class Notification {
 
-   private String notificationTitle;
-   private String notificationSenderId;
-   private String complainId;
-   private String complainType;
+   private String notification_title;
+   private String notification_sender_id;
+   private String complain_id;
+   private String complain_type;
 
    public Notification(){
 
    }
 
-    public Notification(String notificationTitle, String notificationSenderId,String complainId,String complainType) {
-        this.notificationTitle = notificationTitle;
-        this.notificationSenderId = notificationSenderId;
-        this.complainId=complainId;
-        this.complainType=complainType;
+    public Notification(String notification_title, String notification_sender_id, String complain_id, String complain_type) {
+        this.notification_title = notification_title;
+        this.notification_sender_id = notification_sender_id;
+        this.complain_id = complain_id;
+        this.complain_type = complain_type;
     }
 
-    public String getNotificationTitle() {
-        return notificationTitle;
+    public String getNotification_title() {
+        return notification_title;
     }
 
-    public void setNotificationTitle(String notificationTitle) {
-        this.notificationTitle = notificationTitle;
+    public void setNotification_title(String notification_title) {
+        this.notification_title = notification_title;
     }
 
-    public String getNotificationSenderId() {
-        return notificationSenderId;
+    public String getNotification_sender_id() {
+        return notification_sender_id;
     }
 
-    public void setNotificationSenderId(String notificationSenderId) {
-        this.notificationSenderId = notificationSenderId;
+    public void setNotification_sender_id(String notification_sender_id) {
+        this.notification_sender_id = notification_sender_id;
     }
 
-    public String getComplainId() {
-        return complainId;
+    public String getComplain_id() {
+        return complain_id;
     }
 
-    public void setComplainId(String complainId) {
-        this.complainId = complainId;
+    public void setComplain_id(String complain_id) {
+        this.complain_id = complain_id;
     }
 
-    public String getComplainType() {
-        return complainType;
+    public String getComplain_type() {
+        return complain_type;
     }
 
-    public void setComplainType(String complainType) {
-        this.complainType = complainType;
+    public void setComplain_type(String complain_type) {
+        this.complain_type = complain_type;
     }
 }

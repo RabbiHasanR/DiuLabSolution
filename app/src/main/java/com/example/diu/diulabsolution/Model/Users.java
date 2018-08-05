@@ -1,64 +1,57 @@
 package com.example.diu.diulabsolution.Model;
 
 public class Users {
-    private String userName;
-    private String userId;
-    private String userType;
-    private String userEmail;
+    private String name;
+    private String user_id;
+    private String user_type;
+    private String email;
     private String password;
-    private String userImage;
+    private String images;
 
 
     public Users(){
 
     }
-   public Users(String userImage,String userName,String userId,String userType,String userEmail,String password){
-        this.userImage=userImage;
-        this.userName=userName;
-        this.userId=userId;
-        this.userType=userType;
-        this.userEmail=userEmail;
-        this.password=password;
-   }
 
-    public String getUserImage() {
-        return userImage;
+    public Users(String name, String user_id, String user_type, String email, String password, String images) {
+        this.name = name;
+        this.user_id = user_id;
+        this.user_type = user_type;
+        this.email = email;
+        this.password = password;
+        this.images = images;
     }
 
-    public void setUserImage(String userImage) {
-        this.userImage = userImage;
+    public String getName() {
+        return name;
     }
 
-    public String getUserName() {
-        return userName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public String getUser_id() {
+        return user_id;
     }
 
-    public String getUserId() {
-        return userId;
+    public void setUser_id(String user_id) {
+        this.user_id = user_id;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public String getUser_type() {
+        return user_type;
     }
 
-    public String getUserType() {
-        return userType;
+    public void setUser_type(String user_type) {
+        this.user_type = user_type;
     }
 
-    public void setUserType(String userType) {
-        this.userType = userType;
+    public String getEmail() {
+        return email;
     }
 
-    public String getUserEmail() {
-        return userEmail;
-    }
-
-    public void setUserEmail(String userEmail) {
-        this.userEmail = userEmail;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPassword() {
@@ -67,5 +60,13 @@ public class Users {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getImages() {
+        return images;
+    }
+
+    public void setImages(String images) {
+        this.images = images;
     }
 }

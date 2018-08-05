@@ -132,8 +132,12 @@ public class SignInActivity extends AppCompatActivity {
                                    /** Send  login report to user table that this user_type is authority && login_status is true && store  firebase token  **/
                                    upateUserLoginStatus(userType);
                                }
-                               else {
+                               else if(userType.equalsIgnoreCase("user")){
                                    sendToUser();
+                                   progressBar.setVisibility(View.INVISIBLE);
+                               }
+                               else{
+                                   Toast.makeText(SignInActivity.this, "Select user type", Toast.LENGTH_SHORT).show();
                                    progressBar.setVisibility(View.INVISIBLE);
                                }
                            }else {
@@ -159,6 +163,7 @@ public class SignInActivity extends AppCompatActivity {
                 HashMap<String, Object> updateInfo = new HashMap<>();
                 updateInfo.put("login_status", true);
                 updateInfo.put("token", token);
+
                 userId = mAuth.getCurrentUser().getUid();
 
                 mFiresStore.collection("users").document(userId).update(updateInfo).addOnSuccessListener(new OnSuccessListener<Void>() {

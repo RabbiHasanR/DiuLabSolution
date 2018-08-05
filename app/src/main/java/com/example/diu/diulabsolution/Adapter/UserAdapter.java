@@ -38,10 +38,10 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.userNameView.setText(usersList.get(position).getUserName());
-        holder.userIdView.setText(usersList.get(position).getUserId());
+        holder.userNameView.setText(usersList.get(position).getName());
+        holder.userIdView.setText(usersList.get(position).getUser_id());
         CircleImageView user_image_view=holder.imageView;
-        Glide.with(context).load(usersList.get(position).getUserImage()).into(user_image_view);
+        Glide.with(context).load(usersList.get(position).getImages()).into(user_image_view);
 
     }
 

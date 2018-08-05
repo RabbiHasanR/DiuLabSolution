@@ -2,6 +2,7 @@ package com.example.diu.diulabsolution.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.AppCompatButton;
 import android.view.LayoutInflater;
@@ -9,15 +10,23 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.Toast;
 
 import com.example.diu.diulabsolution.Activity.ReportActivity;
 import com.example.diu.diulabsolution.Activity.SignInActivity;
 import com.example.diu.diulabsolution.Adapter.RoomAdapter;
 import com.example.diu.diulabsolution.Model.Room;
 import com.example.diu.diulabsolution.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class HomeFragment extends Fragment {
 
@@ -25,6 +34,7 @@ public class HomeFragment extends Fragment {
     private GridView gridView;
     private AppCompatButton logoutBtn;
     private FirebaseAuth mAuth;
+    private FirebaseFirestore mFiresStore;
 
 
     @Override
@@ -75,10 +85,34 @@ public class HomeFragment extends Fragment {
            @Override
            public void onClick(View v) {
                mAuth.signOut();
+              // upateUserLoginStatus();
                Intent intent=new Intent(getContext(),SignInActivity.class);
                startActivity(intent);
            }
        });
+    }
+
+    private void upateUserLoginStatus(String userType) {
+        FirebaseInstanceId.getInstance().getInstanceId().addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+            @Override
+            public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                String token = null;
+                HashMap<String, Object> updateInfo = new HashMap<>();
+                updateInfo.put("login_status", false);
+                updateInfo.put("token", token);
+
+                String userId = mAuth.getCurrentUser().getUid();
+
+                mFiresStore.collection("users").document(userId).update(updateInfo).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Toast.makeText(getContext(), "Logout", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
+
+
     }
 
 
